@@ -6,7 +6,7 @@
     <title>บันทึกการปฏิบัติงาน</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
+   <style>
     @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
     
     body { 
@@ -15,69 +15,107 @@
         color: #334155;
         margin: 0;
         padding: 0;
+        overflow-x: hidden; /* ป้องกันหน้าจอส่ายไปมา */
     }
 
-    /* แบนเนอร์ใหม่: เรียบ ตรง เป็นทางการ น้ำเงินเข้มขอบทอง */
+    /* แบนเนอร์: ปรับให้ยืดหยุ่นตามหน้าจอ */
     .header-banner { 
         background: linear-gradient(135deg, #1e3a8a 0%, #1a3675 100%);
         color: white; 
-        padding: 50px 20px 80px 20px; /* เพิ่มพื้นที่ด้านล่างเพื่อให้การ์ดเกย */
-        border-bottom: 5px solid #fbbf24; /* เส้นขอบทองเรียบๆ */
+        padding: 40px 15px 70px 15px; 
+        border-bottom: 5px solid #fbbf24;
         position: relative;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        /* ลบ border-radius ออกเพื่อให้เป็นทรงตรง */
     }
 
-    /* จัดวางโลโก้และชื่อระบบคู่กัน */
     .brand-wrapper {
         display: flex;
+        flex-direction: row; /* แนวนอนเป็นค่าเริ่มต้น */
         align-items: center;
         justify-content: center;
-        gap: 15px; /* ระยะห่างระหว่างโลโก้และชื่อ */
-        margin-bottom: 10px;
+        gap: 12px;
+        margin-bottom: 8px;
     }
 
     .school-logo {
-        height: 60px; /* ขนาดโลโก้ */
+        height: 50px;
         width: auto;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); /* เพิ่มมิติให้โลโก้ */
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
     }
 
     .header-banner h2 {
-        font-size: 2rem;
+        font-size: 1.6rem; /* ปรับลดจาก 2rem */
         font-weight: 700;
-        letter-spacing: 0.5px;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         margin: 0;
+        line-height: 1.2;
     }
 
     .header-banner p {
-        font-size: 1rem;
+        font-size: 0.9rem;
         opacity: 0.85;
-        font-weight: 400;
         margin-top: 5px;
     }
 
-    /* การ์ดกรอกข้อมูล: ดูสะอาดตา เกยแบนเนอร์ขึ้นไปเล็กน้อย */
+    /* การ์ดข้อมูล */
     .main-card { 
         border: none; 
-        border-radius: 15px; /* โค้ดที่การ์ดนิดหน่อยให้ดูทันสมัย */
-        box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
-        margin-top: -50px; /* ให้การ์ดเกยขึ้นไปบนแบนเนอร์ */
-        background: rgba(255, 255, 255, 1);
-        border: 1px solid rgba(226, 232, 240, 1);
+        border-radius: 15px; 
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        margin-top: -40px; 
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-    /* ส่วนอื่นๆ คงเดิมเพื่อความเสถียร */
-    .form-label { font-weight: 700; color: #1e3a8a; margin-bottom: 8px; font-size: 0.95rem; }
-    .form-control { border: 1px solid #e2e8f0; padding: 12px 15px; transition: all 0.3s; border-radius: 8px; }
-    .form-control:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
-    .btn-primary { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border: none; padding: 15px; font-size: 1.1rem; border-radius: 10px; transition: transform 0.2s, box-shadow 0.2s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3); background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%); }
-    .preview-label { font-weight: bold; color: #1e3a8a; font-size: 0.85rem; text-transform: uppercase; }
-    .preview-value { margin-bottom: 15px; color: #1e293b; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; line-height: 1.6; white-space: pre-wrap; }
+    .form-label { font-weight: 700; color: #1e3a8a; margin-bottom: 6px; font-size: 0.9rem; }
+    .form-control { border: 1px solid #e2e8f0; padding: 10px 12px; border-radius: 8px; font-size: 16px !important; /* ป้องกัน iPhone ซูมหน้าจอขณะพิมพ์ */ }
+    
+    .btn-primary { 
+        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); 
+        border: none; 
+        padding: 14px; 
+        font-size: 1rem; 
+        border-radius: 10px; 
+        font-weight: bold;
+    }
+
+    /* ส่วนแสดงผล Preview */
+    .preview-label { font-weight: bold; color: #1e3a8a; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .preview-value { margin-bottom: 12px; color: #1e293b; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; line-height: 1.5; font-size: 0.95rem; white-space: pre-wrap; }
+
+    /* ปรับปรุงสำหรับมือถือโดยเฉพาะ (Responsive) */
+    @media (max-width: 576px) {
+        .header-banner { padding: 30px 10px 60px 10px; }
+        
+        .brand-wrapper {
+            flex-direction: column; /* มือถือให้โลโก้อยู่บน ชื่ออยู่ล่าง */
+            gap: 8px;
+        }
+
+        .school-logo { height: 45px; } /* ลดขนาดโลโก้ลงนิดนึง */
+
+        .header-banner h2 { 
+            font-size: 1.3rem; /* ชื่อระบบตัวเล็กลงเพื่อไม่ให้ตัดบรรทัดมั่ว */
+            text-align: center;
+        }
+
+        .header-banner p { font-size: 0.8rem; }
+
+        .main-card { 
+            margin-top: -30px; 
+            padding: 15px !important; /* ลด padding ข้างในเพื่อเพิ่มพื้นที่ */
+        }
+
+        .preview-value { font-size: 0.9rem; } /* ลดขนาดตัวอักษรในหน้า Preview */
+        
+        /* ปรับรูปในมือถือให้ดูใหญ่ขึ้น */
+        .modal-img { max-height: 140px; }
+    }
+
     .img-preview-box { width: 100%; border-radius: 8px; display: none; margin-top: 10px; border: 2px dashed #cbd5e1; }
-    .modal-img { width: 100%; border-radius: 8px; max-height: 180px; object-fit: contain; background: #f1f5f9; }
+    .modal-img { width: 100%; border-radius: 8px; object-fit: contain; background: #f1f5f9; }
 </style>
 </head>
 <body>
