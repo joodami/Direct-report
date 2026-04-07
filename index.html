@@ -363,10 +363,13 @@
         const modal = bootstrap.Modal.getInstance(document.getElementById('pModal'));
         if (modal) modal.hide();
 
-        Swal.fire({ 
-            title: 'กำลังบันทึก...', 
+       Swal.fire({ 
+            title: 'ระบบกำลังสร้างไฟล์รายงาน', 
+            text: 'กรุณารอสักครู่...', 
             allowOutsideClick: false, 
-            didOpen: () => Swal.showLoading() 
+            didOpen: () => {
+                Swal.showLoading();
+            } 
         });
         
         const body = {
