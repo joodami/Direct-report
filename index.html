@@ -144,12 +144,27 @@
         try {
             const res = await fetch(APP_URL, { method: 'POST', body: JSON.stringify(body) });
             const data = await res.json();
-            if(data.status === 'success') {
-                Swal.fire('สำเร็จ!', '', 'success').then(() => window.open(data.viewUrl, '_blank'));
-                document.getElementById('reportForm').reset();
-                document.querySelectorAll('.img-preview-box').forEach(i => i.style.display='none');
-                b1 = b2 = "";
-            }
+// ค้นหาช่วงบรรทัดที่ตรวจสอบ if(result.status === 'success') หรือ if(data.status === 'success')
+if (data.status === 'success') {
+    Swal.fire({
+        icon: 'success',
+        title: 'บันทึกสำเร็จ!',
+        text: 'ระบบสร้างไฟล์รายงานเรียบร้อยแล้วค่ะ',
+        confirmButtonText: '📂 ดูรายงาน PDF', // ปรับข้อความปุ่มตรงนี้
+        confirmButtonColor: '#1e3a8a',      // ปรับสีปุ่มให้เข้ากับโทนโรงเรียน
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // เมื่อคลิกปุ่ม "ดูรายงาน PDF" ให้เปิดหน้าต่างใหม่
+            window.open(data.viewUrl, '_blank');
+        }
+    });
+
+    // ล้างค่าในฟอร์มหลังจากบันทึกเสร็จ
+    document.getElementById('reportForm').reset();
+    document.querySelectorAll('.img-preview-box').forEach(i => i.style.display = 'none');
+    b1 = b2 = ""; 
+}
         } catch (e) { Swal.fire('เกิดข้อผิดพลาด', e.toString(), 'error'); }
     }
 </script>
