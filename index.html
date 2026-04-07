@@ -11,155 +11,179 @@
     
     body { 
         font-family: 'Sarabun', sans-serif; 
-        background: radial-gradient(circle at top right, #f8fafc, #e2e8f0); /* พื้นหลังไล่เฉดอ่อนๆ */
-        color: #1e293b;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         margin: 0;
-        padding: 0;
+        padding: 20px 15px;
         min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
 
-    /* แบนเนอร์: ไล่เฉดสีน้ำเงินลึก (Deep Blue) แบบหรูหรา */
-    .header-banner { 
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
-        color: white; 
-        padding: 40px 15px 80px 15px; 
-        border-bottom: 3px solid rgba(251, 191, 36, 0.8); /* เส้นขอบทองแบบโปร่งแสง */
-        position: relative;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    /* การ์ดหลัก: ปรับให้ดูพรีเมียมและสมดุล */
+    .main-card { 
+        width: 100%;
+        max-width: 600px;
+        background: #ffffff;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        margin-top: 20px;
     }
 
-    .brand-wrapper {
+    /* ส่วนหัวข้อภายในการ์ด (Header Inside Card) */
+    .card-header-custom {
+        padding: 35px 25px 25px 25px;
+        text-align: center;
+        background: linear-gradient(to bottom, #ffffff, #f8fafc);
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .icon-box {
+        width: 55px;
+        height: 55px;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        color: #fbbf24;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
+        border-radius: 16px;
+        margin: 0 auto 15px auto;
+        font-size: 28px;
+        box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);
     }
 
-    /* ไอคอนบันทึก: ปรับให้ดูเป็นกระจก (Glass Effect) */
-    .report-icon {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #fbbf24; /* ไอคอนสีทองตัดกับน้ำเงินเข้ม */
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        font-size: 26px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    }
-
-    .header-banner h2 {
-        font-size: 1.6rem;
+    .card-header-custom h2 {
+        color: #0f172a;
+        font-size: 1.5rem;
         font-weight: 700;
         margin: 0;
-        letter-spacing: 1px;
-        background: linear-gradient(to bottom, #ffffff, #cbd5e1); /* ไล่เฉดสีตัวอักษรให้ดูมีมิติ */
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        letter-spacing: 0.5px;
     }
 
-    /* การ์ดฟอร์ม: เน้นความสะอาดและขอบมนที่พอดี */
-    .main-card { 
-        border: none; 
-        border-radius: 20px; 
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-        margin: -45px auto 50px auto; 
-        max-width: 650px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        margin-left: 15px;
-        margin-right: 15px;
+    .header-line {
+        width: 40px;
+        height: 4px;
+        background: #fbbf24;
+        margin: 12px auto 0 auto;
+        border-radius: 10px;
     }
 
-    .card-body { padding: 35px !important; }
+    .card-body { padding: 30px !important; }
 
-    /* ปรับแต่ง Input ให้ดูพรีเมียม */
+    /* ปรับแต่ง Input ให้ดูพรีเมียมสะอาดตา */
     .form-label { 
         font-weight: 700; 
-        color: #334155; 
+        color: #475569; 
         font-size: 0.85rem; 
         margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        display: block;
     }
 
     .form-control { 
         border: 1px solid #e2e8f0; 
         border-radius: 12px; 
-        padding: 12px 16px;
-        background-color: #f8fafc;
+        padding: 12px 15px;
+        background-color: #fcfdfe;
+        font-size: 16px !important;
         transition: all 0.3s ease;
     }
 
     .form-control:focus { 
-        background-color: #ffffff;
         border-color: #3b82f6; 
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.08); 
     }
 
-    /* ปุ่มส่งข้อมูล: ไล่เฉดสีแบบสุขุม */
+    /* ปุ่มส่งข้อมูล */
     .btn-primary { 
-        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        background: #1e3a8a;
         border: none; 
         padding: 16px; 
         font-weight: bold;
-        border-radius: 14px;
-        box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.2);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 15px;
+        width: 100%;
+        transition: all 0.3s;
+        margin-top: 10px;
     }
 
     .btn-primary:hover { 
-        background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+        background: #1e40af;
         transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3);
+        box-shadow: 0 8px 15px rgba(30, 58, 138, 0.2);
     }
 
-    /* Responsive */
+    /* ปรับปรุงสำหรับมือถือ */
     @media (max-width: 576px) {
-        .header-banner { padding: 35px 15px 70px 15px; }
-        .header-banner h2 { font-size: 1.3rem; }
-        .main-card { margin-top: -35px; }
-        .card-body { padding: 25px !important; }
+        body { padding: 10px; }
+        .main-card { border-radius: 20px; margin-top: 10px; }
+        .card-header-custom { padding: 30px 20px 20px 20px; }
+        .card-header-custom h2 { font-size: 1.3rem; }
+        .card-body { padding: 20px !important; }
+        .icon-box { width: 45px; height: 45px; font-size: 22px; }
     }
 </style>
 </head>
 <body>
-
-<div class="header-banner text-center">
-    <div class="container">
-        <div class="brand-wrapper">
-            <div class="report-icon">
-                <span style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">📑</span>
-            </div>
-            
-            <h2 class="fw-bold">บันทึกการปฏิบัติงาน</h2>
-        </div>
-        
-        <div style="width: 40px; height: 3px; background: rgba(251, 191, 36, 0.6); margin: 15px auto 0 auto; border-radius: 2px;"></div>
-    </div>
-</div>
-
-<div class="container mb-5">
+<div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card main-card p-4 p-md-5">
-                <form id="reportForm">
-                    <div class="mb-3"><label class="fw-bold">วันที่ปฏิบัติงาน</label><input type="date" id="date" class="form-control" required></div>
-                    <div class="mb-3"><label class="fw-bold">เรื่อง</label><textarea id="subject" class="form-control auto-height" rows="1" required></textarea></div>
-                    <div class="mb-3"><label class="fw-bold">รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</label><textarea id="detail" class="form-control auto-height" rows="2" required></textarea></div>
-                    <div class="mb-3"><label class="fw-bold">ข้อเสนอแนะ</label><textarea id="suggestion" class="form-control auto-height" rows="1"></textarea></div>
-                    <div class="mb-4"><label class="fw-bold">ชื่อผู้บันทึก</label><input type="text" id="recorder" class="form-control" required></div>
-
-                    <div class="row mb-4">
-                        <div class="col-6"><label class="small fw-bold">รูปประกอบ 1</label><input type="file" id="img1" class="form-control" accept="image/*" required><img id="v1" class="img-preview-box"></div>
-                        <div class="col-6"><label class="small fw-bold">รูปประกอบ 2</label><input type="file" id="img2" class="form-control" accept="image/*" required><img id="v2" class="img-preview-box"></div>
+        <div class="col-lg-7 col-md-9">
+            <div class="card main-card shadow-lg border-0" style="border-radius: 24px; overflow: hidden;">
+                
+                <div class="card-header-custom text-center pt-5 pb-4" style="background: linear-gradient(to bottom, #ffffff, #f8fafc); border-bottom: 1px solid #f1f5f9;">
+                    <div class="icon-box mb-3" style="width: 60px; height: 60px; background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); color: #fbbf24; display: flex; align-items: center; justify-content: center; border-radius: 18px; margin: 0 auto; font-size: 30px; box-shadow: 0 10px 20px rgba(30, 58, 138, 0.2);">
+                        📑
                     </div>
-                    <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill" onclick="showPreview()">🔍 ตรวจสอบข้อมูลก่อนส่ง</button>
-                </form>
+                    <h2 class="fw-bold" style="color: #0f172a; font-size: 1.6rem; letter-spacing: 0.5px; margin: 0;">บันทึกการปฏิบัติงาน</h2>
+                    <div style="width: 40px; height: 4px; background: #fbbf24; margin: 12px auto 0 auto; border-radius: 10px;"></div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form id="reportForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" style="color: #475569; font-size: 0.9rem;">🗓️ วันที่ปฏิบัติงาน</label>
+                            <input type="date" id="date" class="form-control" style="border-radius: 12px; padding: 12px;" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" style="color: #475569; font-size: 0.9rem;">📌 เรื่อง</label>
+                            <textarea id="subject" class="form-control auto-height" rows="1" style="border-radius: 12px; padding: 12px;" placeholder="ระบุหัวข้อรายงาน" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" style="color: #475569; font-size: 0.9rem;">📄 รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</label>
+                            <textarea id="detail" class="form-control auto-height" rows="3" style="border-radius: 12px; padding: 12px;" placeholder="ระบุรายละเอียด..." required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold" style="color: #475569; font-size: 0.9rem;">💡 ข้อเสนอแนะ</label>
+                            <textarea id="suggestion" class="form-control auto-height" rows="1" style="border-radius: 12px; padding: 12px;" placeholder="ระบุข้อเสนอแนะ (ถ้ามี)"></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold" style="color: #475569; font-size: 0.9rem;">👤 ผู้บันทึก</label>
+                            <input type="text" id="recorder" class="form-control" style="border-radius: 12px; padding: 12px;" placeholder="ชื่อ-นามสกุล" required>
+                        </div>
+
+                        <div class="row mb-4 g-3">
+                            <div class="col-6">
+                                <label class="small fw-bold text-muted">📸 รูปประกอบ 1</label>
+                                <input type="file" id="img1" class="form-control form-control-sm" accept="image/*" required>
+                                <img id="v1" class="img-preview-box mt-2" style="width: 100%; border-radius: 10px; display: none; border: 1px solid #e2e8f0;">
+                            </div>
+                            <div class="col-6">
+                                <label class="small fw-bold text-muted">📸 รูปประกอบ 2</label>
+                                <input type="file" id="img2" class="form-control form-control-sm" accept="image/*" required>
+                                <img id="v2" class="img-preview-box mt-2" style="width: 100%; border-radius: 10px; display: none; border: 1px solid #e2e8f0;">
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow" onclick="showPreview()" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border: none;">
+                            🔍 ตรวจสอบข้อมูลก่อนส่ง
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
