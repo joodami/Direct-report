@@ -96,33 +96,45 @@
     }
 
     /* --- [ CSS เพิ่มเติมสำหรับหน้าตรวจสอบข้อมูล ] --- */
+   /* ปรับแต่งหัวข้อในหน้าตรวจสอบให้ตัวหนาและชัดเจน */
     .preview-label { 
-        font-weight: 700; 
+        font-weight: 700 !important; 
         color: #1e3a8a; 
-        margin-bottom: 2px;
+        margin-bottom: 4px;
         font-size: 1.1rem;
+        display: block;
     }
     
-    .preview-value { 
+   .preview-value { 
+        font-weight: 400;
         background: #f8fafc;
-        padding: 10px 15px;
-        border-radius: 8px;
-        border-left: 3px solid #cbd5e1;
-        margin-bottom: 15px;
-        color: #334155;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 18px;
+        color: #1e293b;
+        word-break: break-word; /* ป้องกันข้อความยาวล้นจอ */
     }
 
+   /* --- [ CSS ปรับปรุงให้แสดงรูปเต็มภาพจริง ] --- */
     .modal-img { 
         width: 100%; 
-        aspect-ratio: 4/3; /* บังคับสัดส่วนรูปให้เท่ากัน */
-        object-fit: cover; /* ถ้ารูปเบี้ยวจะตัดขอบให้พอดีกรอบ */
+        height: 250px; /* กำหนดความสูงคงที่ไว้ระดับหนึ่ง */
+        object-fit: contain; /* โชว์รูปเต็มใบ ไม่ตัดขอบ (Crop) แน่นอน */
+        background-color: #f1f5f9; /* ใส่สีพื้นหลังจางๆ ให้ดูซอฟต์ */
         border-radius: 12px;
-        border: 2px solid #ffffff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        padding: 5px; /* เว้นระยะจากขอบนิดนึงเพื่อให้เห็นรูปชัดเจน */
     }
     
     .modal-content {
         overflow: hidden; /* ป้องกันเนื้อหาล้นขอบมน */
+    }
+    /* เน้นชื่อผู้บันทึกและเรื่องให้เด่นเป็นพิเศษ */
+    #pRec, #pSub {
+        font-weight: 700 !important;
+        color: #0f172a;
     }
 </style>
 </head>
@@ -196,28 +208,28 @@
             <div class="modal-body px-4 pt-4" style="background: #ffffff;">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="preview-label">🗓️ วันที่</p>
-                        <p id="pDate" class="preview-value"></p>
+                        <span class="preview-label">🗓️ วันที่</span>
+                        <div id="pDate" class="preview-value"></div>
                     </div>
                     <div class="col-md-6">
-                        <p class="preview-label">👤 ผู้บันทึก</p>
-                        <p id="pRec" class="preview-value fw-bold text-primary"></p>
+                        <span class="preview-label">👤 ผู้บันทึก</span>
+                        <div id="pRec" class="preview-value"></div>
                     </div>
                     <div class="col-12">
-                        <p class="preview-label">📌 เรื่อง</p>
-                        <p id="pSub" class="preview-value fw-bold"></p>
+                        <span class="preview-label">📌 เรื่อง</span>
+                        <div id="pSub" class="preview-value"></div>
                     </div>
                     <div class="col-12">
-                        <p class="preview-label">📄 รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</p>
-                        <div id="pDet" class="preview-value" style="white-space: pre-wrap; min-height: 80px;"></div>
+                        <span class="preview-label">📄 รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</span>
+                        <div id="pDet" class="preview-value" style="white-space: pre-wrap; min-height: 100px;"></div>
                     </div>
                     <div class="col-12">
-                        <p class="preview-label">💡 ข้อเสนอแนะ</p>
-                        <p id="pSug" class="preview-value text-muted italic"></p>
+                        <span class="preview-label">💡 ข้อเสนอแนะ</span>
+                        <div id="pSug" class="preview-value text-muted italic"></div>
                     </div>
                 </div>
                 
-                <div class="row g-3 mt-1 pb-3">
+                <div class="row g-3 mt-1 pb-4">
                     <div class="col-6 text-center">
                         <p class="small fw-bold text-secondary mb-2">📸 รูปภาพประกอบ 1</p>
                         <img id="pv1" class="modal-img">
@@ -230,7 +242,7 @@
             </div>
             <div class="modal-footer border-0 bg-light rounded-bottom-4 px-4 py-3">
                 <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">ย้อนกลับไปแก้ไข</button>
-                <button type="button" class="btn btn-primary rounded-pill px-5 fw-bold shadow" onclick="doSubmit()">✅ ยืนยันบันทึกข้อมูล</button>
+                <button type="button" class="btn btn-primary rounded-pill px-5 fw-bold shadow-sm" onclick="doSubmit()">✅ ยืนยันบันทึกข้อมูล</button>
             </div>
         </div>
     </div>
