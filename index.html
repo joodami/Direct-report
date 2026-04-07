@@ -11,8 +11,18 @@
         body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
         .header-banner { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 45px 20px; border-radius: 0 0 50px 50px; }
         .main-card { border: none; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-top: -40px; }
-        .preview-label { font-weight: bold; color: #1e3a8a; margin-bottom: 2px; font-size: 0.85rem; }
-        .preview-value { margin-bottom: 12px; color: #333; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; }
+        .form-label { font-weight: bold; color: #1e3a8a; }
+        
+        /* สไตล์สำหรับ Textarea ที่ขยายอัตโนมัติ */
+        textarea.form-control {
+            resize: none; 
+            overflow: hidden; 
+            min-height: 45px; 
+            transition: height 0.2s ease;
+        }
+
+        .preview-label { font-weight: bold; color: #1e3a8a; font-size: 0.85rem; }
+        .preview-value { margin-bottom: 12px; color: #333; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; line-height: 1.6; white-space: pre-wrap; }
         .img-preview-box { width: 100%; border-radius: 12px; display: none; margin-top: 10px; border: 2px dashed #cbd5e1; }
         .modal-img { width: 100%; border-radius: 12px; margin-bottom: 10px; max-height: 180px; object-fit: contain; background: #f1f5f9; }
     </style>
@@ -30,15 +40,30 @@
             <div class="card main-card">
                 <div class="card-body p-4 p-md-5">
                     <form id="reportForm">
-                        <div class="mb-3"><label class="form-label fw-bold">วันที่ปฏิบัติงาน</label><input type="date" id="date" class="form-control rounded-3" required></div>
-                        <div class="mb-3"><label class="form-label fw-bold">เรื่อง</label><input type="text" id="subject" class="form-control rounded-3" placeholder="ระบุหัวข้อรายงาน" required></div>
-                        <div class="mb-3"><label class="form-label fw-bold">รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</label><textarea id="detail" class="form-control rounded-3" rows="3" placeholder="ระบุรายละเอียดการทำงาน..." required></textarea></div>
-                        <div class="mb-3"><label class="form-label fw-bold">ข้อเสนอแนะ</label><input type="text" id="suggestion" class="form-control rounded-3" placeholder="ข้อเสนอแนะเพิ่มเติม (ถ้ามี)"></div>
-                        <div class="mb-4"><label class="form-label fw-bold">ชื่อผู้บันทึก</label><input type="text" id="recorder" class="form-control rounded-3" placeholder="ระบุชื่อ-นามสกุล" required></div>
+                        <div class="mb-3">
+                            <label class="form-label">วันที่ปฏิบัติงาน</label>
+                            <input type="date" id="date" class="form-control rounded-3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">เรื่อง</label>
+                            <textarea id="subject" class="form-control rounded-3 auto-expand" rows="1" placeholder="ระบุหัวข้อรายงาน" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</label>
+                            <textarea id="detail" class="form-control rounded-3 auto-expand" rows="2" placeholder="ระบุรายละเอียดการทำงาน..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">ข้อเสนอแนะ</label>
+                            <textarea id="suggestion" class="form-control rounded-3 auto-expand" rows="1" placeholder="ระบุข้อเสนอแนะเพิ่มเติม (ถ้ามี)"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">ชื่อผู้บันทึก</label>
+                            <input type="text" id="recorder" class="form-control rounded-3" placeholder="ระบุชื่อ-นามสกุล" required>
+                        </div>
 
                         <div class="row mb-4">
-                            <div class="col-6"><label class="form-label fw-bold text-primary small">รูปประกอบ 1</label><input type="file" id="imgInput1" class="form-control form-control-sm" accept="image/*" required><img id="view1" class="img-preview-box"></div>
-                            <div class="col-6"><label class="form-label fw-bold text-primary small">รูปประกอบ 2</label><input type="file" id="imgInput2" class="form-control form-control-sm" accept="image/*" required><img id="view2" class="img-preview-box"></div>
+                            <div class="col-6"><label class="form-label small">รูปประกอบ 1</label><input type="file" id="imgInput1" class="form-control form-control-sm" accept="image/*" required><img id="view1" class="img-preview-box"></div>
+                            <div class="col-6"><label class="form-label small">รูปประกอบ 2</label><input type="file" id="imgInput2" class="form-control form-control-sm" accept="image/*" required><img id="view2" class="img-preview-box"></div>
                         </div>
 
                         <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow" onclick="showPreview()">🔍 ตรวจสอบข้อมูลก่อนส่ง</button>
@@ -51,14 +76,14 @@
 
 <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0" style="border-radius: 25px;">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 25px;">
             <div class="modal-header border-0 px-4 pt-4"><h5 class="modal-title fw-bold text-primary">ตรวจสอบความถูกต้อง</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
             <div class="modal-body px-4 pt-0">
                 <div class="row">
                     <div class="col-md-6"><p class="preview-label">ผู้บันทึก:</p><p id="pRecorder" class="preview-value fw-bold text-dark"></p></div>
                     <div class="col-md-6"><p class="preview-label">วันที่ปฏิบัติงาน:</p><p id="pDate" class="preview-value text-primary fw-bold"></p></div>
                     <div class="col-12"><p class="preview-label">หัวข้อเรื่อง:</p><p id="pSubject" class="preview-value"></p></div>
-                    <div class="col-12"><p class="preview-label">รายละเอียด:</p><p id="pDetail" class="preview-value" style="white-space: pre-wrap;"></p></div>
+                    <div class="col-12"><p class="preview-label">รายละเอียด:</p><p id="pDetail" class="preview-value"></p></div>
                     <div class="col-12"><p class="preview-label">ข้อเสนอแนะ:</p><p id="pSuggestion" class="preview-value italic text-muted"></p></div>
                 </div>
                 <div class="row mt-2 g-2">
@@ -78,6 +103,14 @@
 <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxMjxnMTPdSR_R8hZNivLhIr-8k4wKun7xs-DsHNUTNvpoVhz4SF8gEetNm5YD_-gwu/exec"; 
     let b1 = "", b2 = "";
+
+    // ฟังก์ชันขยายช่องกรอกอัตโนมัติ
+    document.querySelectorAll('.auto-expand').forEach(el => {
+        el.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
 
     function handleImg(id, view) {
         document.getElementById(id).addEventListener('change', e => {
@@ -108,16 +141,17 @@
             date: document.getElementById('date').value,
             subject: document.getElementById('subject').value,
             detail: document.getElementById('detail').value,
+            suggestion: document.getElementById('suggestion').value,
             recorder: document.getElementById('recorder').value
         };
         if(!val.date || !val.subject || !val.recorder || !b1 || !b2) {
-            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลและรูปภาพให้ครบ 2 รูปค่ะ', 'warning');
+            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลและแนบรูปภาพให้ครบ 2 รูปค่ะ', 'warning');
         }
         document.getElementById('pRecorder').innerText = val.recorder;
         document.getElementById('pDate').innerText = getThaiDate(val.date);
         document.getElementById('pSubject').innerText = val.subject;
         document.getElementById('pDetail').innerText = val.detail;
-        document.getElementById('pSuggestion').innerText = document.getElementById('suggestion').value || "-";
+        document.getElementById('pSuggestion').innerText = val.suggestion || "-";
         document.getElementById('pImg1').src = b1;
         document.getElementById('pImg2').src = b2;
         new bootstrap.Modal(document.getElementById('previewModal')).show();
@@ -141,7 +175,7 @@
                 Swal.fire({ icon: 'success', title: 'สำเร็จ!', html: '<div style="font-size:14px; white-space:nowrap;">สร้างรายงาน PDF เรียบร้อยแล้วค่ะ</div>', confirmButtonText: 'เปิดดูรายงาน'
                 }).then(() => window.open(result.viewUrl, '_blank'));
                 document.getElementById('reportForm').reset();
-                document.querySelectorAll('.img-preview-box').forEach(i => i.style.display='none');
+                document.querySelectorAll('.img-preview-box').forEach(i => { i.style.display='none'; i.style.height='auto'; });
                 b1 = ""; b2 = "";
             }
         } catch (e) { Swal.fire('Error', e.toString(), 'error'); }
