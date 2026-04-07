@@ -17,119 +17,84 @@
         min-height: 100vh;
     }
 
-    /* ขยายเต็มหน้าจอ */
-    .full-width-container {
-        width: 100%;
-        max-width: 100% !important;
-        margin: 0;
-        padding: 0;
-    }
+    .full-width-container { width: 100%; max-width: 100% !important; margin: 0; padding: 0; }
+    .main-card { width: 100%; min-height: 100vh; background: #ffffff; border: none; display: flex; flex-direction: column; }
 
-    .main-card { 
-        width: 100%;
-        min-height: 100vh;
-        background: #ffffff;
-        border: none;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* ส่วนหัวข้อ: ไล่เฉดสีน้ำเงินสวยงามพรีเมียม */
+    /* ส่วนหัวข้อหลักด้านบน */
     .card-header-custom {
-        padding: 22px 15px; /* ลดความสูงลงให้กะทัดรัด */
+        padding: 22px 15px; 
         background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%);
-        border-bottom: 4px solid #fbbf24; /* เส้นขอบทองชัดเจน */
+        border-bottom: 4px solid #fbbf24;
         text-align: center;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    .brand-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-    }
-
-    .icon-box {
-        width: 42px;
-        height: 42px;
-        background: rgba(255, 255, 255, 0.2); /* กระจกฝ้า */
-        backdrop-filter: blur(5px);
-        color: #fbbf24;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        font-size: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
+    .brand-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; }
 
     .card-header-custom h2 {
         color: #ffffff;
-        font-size: 1.6rem;
+        font-size: 1.8rem; 
         font-weight: 700;
         margin: 0;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
 
-    /* เนื้อหาฟอร์ม */
-    .card-body { 
-        padding: 40px !important; 
-        max-width: 1000px;
-        margin: 0 auto;
-        width: 100%;
+    .icon-box {
+        width: 42px; height: 42px; background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(5px); color: #fbbf24; display: flex;
+        align-items: center; justify-content: center; border-radius: 10px;
+        font-size: 20px; border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
+    .card-body { padding: 40px !important; max-width: 1000px; margin: 0 auto; width: 100%; }
+
+    /* --- [ จุดที่ปรับหัวข้อให้ใหญ่ขึ้น ] --- */
     .form-label { 
         font-weight: 700; 
-        color: #1e293b; 
-        font-size: 1rem; 
-        margin-bottom: 10px; 
+        color: #0f172a; /* สีเข้มขึ้นเพื่อความชัดเจน */
+        font-size: 1.25rem; /* ขยายขนาดหัวข้อ (เพิ่มจากเดิม) */
+        margin-bottom: 12px; 
         display: block; 
-    }
-
-    /* ยกเลิกการตัดบรรทัดในมือถือ: ให้แสดงผลบรรทัดเดียวตลอด */
-    .report-label-text {
-        display: inline;
-        white-space: nowrap; /* ป้องกันการตัดขึ้นบรรทัดใหม่ */
+        border-left: 5px solid #1e3a8a; /* เพิ่มเส้นขีดข้างหน้าให้ดูเป็นทางการ */
+        padding-left: 12px;
     }
 
     .form-control { 
-        border: 1px solid #cbd5e1; 
-        border-radius: 12px; 
-        padding: 14px; 
-        font-size: 16px !important; 
+        border: 1px solid #cbd5e1; border-radius: 12px; padding: 15px; 
+        font-size: 17px !important; /* ปรับขนาดตัวหนังสือในช่องกรอกให้ใหญ่ขึ้นนิดนึง */
         background-color: #fcfdfe; 
-        transition: border 0.3s;
     }
 
-    .form-control:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
+    /* --- [ จุดแก้ไขปุ่มให้สวยในมือถือ ] --- */
     .btn-primary { 
         background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); 
         border: none; 
-        padding: 18px; 
+        padding: 20px; 
         font-weight: bold; 
         border-radius: 15px; 
-        font-size: 1.15rem;
+        font-size: 1.2rem;
         box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
+        display: block;
+        width: 100%;
+        white-space: nowrap; /* บังคับไม่ให้ตัดบรรทัด */
     }
 
-    /* ปรับแต่งสำหรับมือถือ */
     @media (max-width: 576px) {
         .card-header-custom { padding: 18px 10px; }
-        .card-header-custom h2 { font-size: 1.25rem; }
-        .icon-box { width: 36px; height: 36px; font-size: 18px; }
+        .card-header-custom h2 { font-size: 1.4rem; } 
         .card-body { padding: 25px 15px !important; }
         
-        /* บังคับให้หัวข้อยาวๆ ตัวเล็กลงนิดนึงในมือถือเพื่อให้พอดีบรรทัดเดียว */
-        .form-label { font-size: 0.9rem; }
-        .report-label-text { font-size: 0.85rem; } 
+        /* หัวข้อในมือถือก็ยังคงใหญ่แต่สมดุล */
+        .form-label { font-size: 1.1rem; padding-left: 10px; }
+        
+        /* แก้ปุ่มในมือถือไม่ให้ล้นและไม่ตัดบรรทัด */
+        .btn-primary { 
+            padding: 16px 5px; 
+            font-size: 0.95rem; /* ลดขนาด Font ลงเพื่อให้ข้อความยาวๆ อยู่ในบรรทัดเดียวได้ */
+            letter-spacing: -0.5px; /* บีบระยะห่างตัวอักษรนิดนึงเพื่อให้พอดีจอ */
+        }
     }
-</style
+</style>
 </head>
 <body>
 <div class="full-width-container">
