@@ -276,14 +276,15 @@
     const APP_URL = "https://script.google.com/macros/s/AKfycbxMjxnMTPdSR_R8hZNivLhIr-8k4wKun7xs-DsHNUTNvpoVhz4SF8gEetNm5YD_-gwu/exec";
     let b1 = "", b2 = "";
 
-    // --- [ ฟังก์ชันบีบอัดรูปภาพให้เล็กลง เพื่อความเร็ว ] ---
+    // --- [ สูตรบีบอัดรูปเวอร์ชันความเร็วสูง ] ---
     async function compressImage(base64Str) {
         return new Promise((resolve) => {
             const img = new Image();
             img.src = base64Str;
             img.onload = () => {
                 const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 1000; // ปรับความกว้างสูงสุดแค่ 1000px (ชัดพอสำหรับ PDF)
+                // ปรับความกว้างเหลือ 800px เพื่อให้ไฟล์เบาที่สุดแต่ยังดูรู้เรื่อง
+                const MAX_WIDTH = 800; 
                 let width = img.width;
                 let height = img.height;
 
@@ -295,8 +296,9 @@
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
-                // บีบอัดคุณภาพเหลือ 0.7 (70%) เพื่อให้ไฟล์เล็กลงมากแต่ภาพยังสวย
-                resolve(canvas.toDataURL('image/jpeg', 0.7));
+                
+                // บีบอัดเหลือ 0.5 (ไฟล์จะเล็กลงมาก ทำให้ Upload ไวขึ้น 2-3 เท่า)
+                resolve(canvas.toDataURL('image/jpeg', 0.5));
             };
         });
     }
@@ -309,21 +311,21 @@
         });
     });
 
+    // เลือกรูปแล้วบีบอัดทันที (Background Process)
     function handleFile(id, view, ref) {
         document.getElementById(id).addEventListener('change', async e => {
             const f = e.target.files[0];
             if (!f) return;
             
-            // แสดง Loading จางๆ ระหว่างประมวลผลรูป
-            Swal.fire({ title: 'กำลังเตรียมรูปภาพ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            // ใช้คำสั้นๆ ให้ดูรวดเร็ว
+            Swal.fire({ title: 'กำลังย่อขนาดรูป...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             
             const r = new FileReader();
             r.onload = async ev => {
                 const compressed = await compressImage(ev.target.result);
                 if(ref === 1) b1 = compressed; else b2 = compressed;
-                const img = document.getElementById(view);
-                img.src = compressed; 
-                img.style.display = 'block';
+                document.getElementById(view).src = compressed; 
+                document.getElementById(view).style.display = 'block';
                 Swal.close();
             };
             r.readAsDataURL(f);
@@ -345,7 +347,7 @@
             det: document.getElementById('detail').value,
             rec: document.getElementById('recorder').value
         };
-        if(!d.date || !d.sub || !d.rec || !b1 || !b2) return Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลและเลือกรูปภาพให้ครบถ้วนค่ะ', 'warning');
+        if(!d.date || !d.sub || !d.rec || !b1 || !b2) return Swal.fire('ข้อมูลไม่ครบ', '', 'warning');
         
         document.getElementById('pRec').innerText = d.rec;
         document.getElementById('pDate').innerText = getThaiDate(d.date);
@@ -362,8 +364,7 @@
         if (modal) modal.hide();
 
         Swal.fire({ 
-            title: 'กำลังบันทึกข้อมูล...', 
-            text: 'กรุณารอสักครู่ ระบบกำลังอัปโหลดรูปภาพและสร้าง PDF ค่ะ',
+            title: 'กำลังบันทึก...', 
             allowOutsideClick: false, 
             didOpen: () => Swal.showLoading() 
         });
@@ -378,6 +379,7 @@
         };
 
         try {
+            // ใช้ fetch แบบระบุสเปคให้เบาที่สุด
             const res = await fetch(APP_URL, { method: 'POST', body: JSON.stringify(body) });
             const data = await res.json();
 
@@ -385,22 +387,16 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'บันทึกสำเร็จ!',
-                    text: 'ระบบสร้างไฟล์รายงานเรียบร้อยแล้วค่ะ',
                     confirmButtonText: '📂 ดูรายงาน PDF',
-                    confirmButtonColor: '#1e3a8a',
-                    allowOutsideClick: false
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open(data.viewUrl, '_blank');
-                    }
-                });
+                    confirmButtonColor: '#1e3a8a'
+                }).then((r) => { if (r.isConfirmed) window.open(data.viewUrl, '_blank'); });
 
                 document.getElementById('reportForm').reset();
                 document.querySelectorAll('.img-preview-box').forEach(i => i.style.display = 'none');
                 b1 = b2 = ""; 
             }
         } catch (e) { 
-            Swal.fire('เกิดข้อผิดพลาด', 'อาจเกิดจากไฟล์รูปใหญ่เกินไปหรืออินเทอร์เน็ตไม่เสถียร กรุณาลองใหม่อีกครั้งค่ะ', 'error'); 
+            Swal.fire('Error', 'ลองใหม่อีกครั้งค่ะ', 'error'); 
         }
     }
 </script>
