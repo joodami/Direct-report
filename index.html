@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บันทึกการปฏิบัติงาน - โรงเรียนพิมานพิทยาสรรค์</title>
+    <title>บันทึกการปฏิบัติงาน - พิมพ.พ.</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -11,89 +11,65 @@
         body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
         .header-banner { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 45px 20px; border-radius: 0 0 50px 50px; }
         .main-card { border: none; border-radius: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); margin-top: -40px; }
-        .form-label { font-weight: bold; color: #1e3a8a; }
         
-        /* สไตล์สำหรับ Textarea ที่ขยายอัตโนมัติ */
-        textarea.form-control {
-            resize: none; 
-            overflow: hidden; 
-            min-height: 45px; 
-            transition: height 0.2s ease;
-        }
-
+        /* ขยาย textarea ตามเนื้อหา */
+        textarea { resize: none; overflow: hidden; min-height: 45px; }
+        
         .preview-label { font-weight: bold; color: #1e3a8a; font-size: 0.85rem; }
-        .preview-value { margin-bottom: 12px; color: #333; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; line-height: 1.6; white-space: pre-wrap; }
+        .preview-value { margin-bottom: 12px; color: #333; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; white-space: pre-wrap; }
         .img-preview-box { width: 100%; border-radius: 12px; display: none; margin-top: 10px; border: 2px dashed #cbd5e1; }
-        .modal-img { width: 100%; border-radius: 12px; margin-bottom: 10px; max-height: 180px; object-fit: contain; background: #f1f5f9; }
+        .modal-img { width: 100%; border-radius: 12px; max-height: 180px; object-fit: contain; background: #f1f5f9; }
     </style>
 </head>
 <body>
 
 <div class="header-banner text-center shadow">
-    <h2 class="fw-bold">บันทึกการปฏิบัติงาน</h2>
-    <p class="mb-0">โรงเรียนพิมานพิทยาสรรค์</p>
+    <h2 class="fw-bold">ระบบบันทึกการปฏิบัติงาน</h2>
+    <p>โรงเรียนพิมานพิทยาสรรค์</p>
 </div>
 
 <div class="container mb-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-xl-7">
-            <div class="card main-card">
-                <div class="card-body p-4 p-md-5">
-                    <form id="reportForm">
-                        <div class="mb-3">
-                            <label class="form-label">วันที่ปฏิบัติงาน</label>
-                            <input type="date" id="date" class="form-control rounded-3" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">เรื่อง</label>
-                            <textarea id="subject" class="form-control rounded-3 auto-expand" rows="1" placeholder="ระบุหัวข้อรายงาน" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">รายละเอียดการปฏิบัติงานและผลการปฏิบัติงาน</label>
-                            <textarea id="detail" class="form-control rounded-3 auto-expand" rows="2" placeholder="ระบุรายละเอียดการทำงาน..." required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">ข้อเสนอแนะ</label>
-                            <textarea id="suggestion" class="form-control rounded-3 auto-expand" rows="1" placeholder="ระบุข้อเสนอแนะเพิ่มเติม (ถ้ามี)"></textarea>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">ชื่อผู้บันทึก</label>
-                            <input type="text" id="recorder" class="form-control rounded-3" placeholder="ระบุชื่อ-นามสกุล" required>
-                        </div>
+        <div class="col-lg-8">
+            <div class="card main-card p-4 p-md-5">
+                <form id="reportForm">
+                    <div class="mb-3"><label class="fw-bold">วันที่ปฏิบัติงาน</label><input type="date" id="date" class="form-control" required></div>
+                    <div class="mb-3"><label class="fw-bold">เรื่อง / หัวข้อรายงาน</label><textarea id="subject" class="form-control auto-height" rows="1" required></textarea></div>
+                    <div class="mb-3"><label class="fw-bold">รายละเอียดการปฏิบัติงาน</label><textarea id="detail" class="form-control auto-height" rows="2" required></textarea></div>
+                    <div class="mb-3"><label class="fw-bold">ข้อเสนอแนะ</label><textarea id="suggestion" class="form-control auto-height" rows="1"></textarea></div>
+                    <div class="mb-4"><label class="fw-bold">ชื่อผู้บันทึก</label><input type="text" id="recorder" class="form-control" required></div>
 
-                        <div class="row mb-4">
-                            <div class="col-6"><label class="form-label small">รูปประกอบ 1</label><input type="file" id="imgInput1" class="form-control form-control-sm" accept="image/*" required><img id="view1" class="img-preview-box"></div>
-                            <div class="col-6"><label class="form-label small">รูปประกอบ 2</label><input type="file" id="imgInput2" class="form-control form-control-sm" accept="image/*" required><img id="view2" class="img-preview-box"></div>
-                        </div>
-
-                        <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill shadow" onclick="showPreview()">🔍 ตรวจสอบข้อมูลก่อนส่ง</button>
-                    </form>
-                </div>
+                    <div class="row mb-4">
+                        <div class="col-6"><label class="small fw-bold">รูปประกอบ 1</label><input type="file" id="img1" class="form-control" accept="image/*" required><img id="v1" class="img-preview-box"></div>
+                        <div class="col-6"><label class="small fw-bold">รูปประกอบ 2</label><input type="file" id="img2" class="form-control" accept="image/*" required><img id="v2" class="img-preview-box"></div>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 py-3 fw-bold rounded-pill" onclick="showPreview()">🔍 ตรวจสอบข้อมูลก่อนส่ง</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="pModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 25px;">
-            <div class="modal-header border-0 px-4 pt-4"><h5 class="modal-title fw-bold text-primary">ตรวจสอบความถูกต้อง</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body px-4 pt-0">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header"><h5 class="fw-bold text-primary">ตรวจสอบข้อมูล</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body px-4">
                 <div class="row">
-                    <div class="col-md-6"><p class="preview-label">ผู้บันทึก:</p><p id="pRecorder" class="preview-value fw-bold text-dark"></p></div>
-                    <div class="col-md-6"><p class="preview-label">วันที่ปฏิบัติงาน:</p><p id="pDate" class="preview-value text-primary fw-bold"></p></div>
-                    <div class="col-12"><p class="preview-label">หัวข้อเรื่อง:</p><p id="pSubject" class="preview-value"></p></div>
-                    <div class="col-12"><p class="preview-label">รายละเอียด:</p><p id="pDetail" class="preview-value"></p></div>
-                    <div class="col-12"><p class="preview-label">ข้อเสนอแนะ:</p><p id="pSuggestion" class="preview-value italic text-muted"></p></div>
+                    <div class="col-6"><p class="preview-label">ผู้บันทึก:</p><p id="pRec" class="preview-value"></p></div>
+                    <div class="col-6"><p class="preview-label">วันที่:</p><p id="pDate" class="preview-value"></p></div>
+                    <div class="col-12"><p class="preview-label">เรื่อง:</p><p id="pSub" class="preview-value"></p></div>
+                    <div class="col-12"><p class="preview-label">รายละเอียด:</p><p id="pDet" class="preview-value"></p></div>
+                    <div class="col-12"><p class="preview-label">ข้อเสนอแนะ:</p><p id="pSug" class="preview-value"></p></div>
                 </div>
-                <div class="row mt-2 g-2">
-                    <div class="col-6 text-center"><p class="preview-label">รูปประกอบ 1</p><img id="pImg1" class="modal-img shadow-sm"></div>
-                    <div class="col-6 text-center"><p class="preview-label">รูปประกอบ 2</p><img id="pImg2" class="modal-img shadow-sm"></div>
+                <div class="row g-2">
+                    <div class="col-6"><img id="pv1" class="modal-img"></div>
+                    <div class="col-6"><img id="pv2" class="modal-img"></div>
                 </div>
             </div>
-            <div class="modal-footer border-0 pb-4 px-4">
-                <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">กลับไปแก้ไข</button>
-                <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold shadow" onclick="submitToGAS()">✅ ยืนยันข้อมูลถูกต้อง</button>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">แก้ไข</button>
+                <button type="button" class="btn btn-primary rounded-pill px-4" onclick="doSubmit()">✅ บันทึกข้อมูล</button>
             </div>
         </div>
     </div>
@@ -101,66 +77,62 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxMjxnMTPdSR_R8hZNivLhIr-8k4wKun7xs-DsHNUTNvpoVhz4SF8gEetNm5YD_-gwu/exec"; 
+    const APP_URL = "https://script.google.com/macros/s/AKfycbxMjxnMTPdSR_R8hZNivLhIr-8k4wKun7xs-DsHNUTNvpoVhz4SF8gEetNm5YD_-gwu/exec";
     let b1 = "", b2 = "";
 
-    // ฟังก์ชันขยายช่องกรอกอัตโนมัติ
-    document.querySelectorAll('.auto-expand').forEach(el => {
-        el.addEventListener('input', function() {
+    // ปรับความสูง textarea อัตโนมัติ
+    document.querySelectorAll('.auto-height').forEach(t => {
+        t.addEventListener('input', function() {
             this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
+            this.style.height = this.scrollHeight + 'px';
         });
     });
 
-    function handleImg(id, view) {
+    function handleFile(id, view, ref) {
         document.getElementById(id).addEventListener('change', e => {
             const f = e.target.files[0];
-            if (f) {
-                const r = new FileReader();
-                r.onload = ev => {
-                    if(id === 'imgInput1') b1 = ev.target.result; else b2 = ev.target.result;
-                    const img = document.getElementById(view);
-                    img.src = ev.target.result; img.style.display = 'block';
-                };
-                r.readAsDataURL(f);
-            }
+            const r = new FileReader();
+            r.onload = ev => {
+                if(ref === 1) b1 = ev.target.result; else b2 = ev.target.result;
+                const img = document.getElementById(view);
+                img.src = ev.target.result; img.style.display = 'block';
+            };
+            r.readAsDataURL(f);
         });
     }
-    handleImg('imgInput1', 'view1'); handleImg('imgInput2', 'view2');
+    handleFile('img1', 'v1', 1); handleFile('img2', 'v2', 2);
 
-    function getThaiDate(val) {
-        const d = new Date(val);
-        const digits = ["๐","๑","๒","๓","๔","๕","๖","๗","๘","๙"];
+    function getThaiDate(v) {
+        const d = new Date(v);
         const months = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
-        let str = d.getDate() + " " + months[d.getMonth()] + " " + (d.getFullYear() + 543);
-        return str.replace(/[0-9]/g, s => digits[s]);
+        const str = d.getDate() + " " + months[d.getMonth()] + " " + (d.getFullYear() + 543);
+        return str.replace(/[0-9]/g, s => ["๐","๑","๒","๓","๔","๕","๖","๗","๘","๙"][s]);
     }
 
     function showPreview() {
-        const val = {
+        const d = {
             date: document.getElementById('date').value,
-            subject: document.getElementById('subject').value,
-            detail: document.getElementById('detail').value,
-            suggestion: document.getElementById('suggestion').value,
-            recorder: document.getElementById('recorder').value
+            sub: document.getElementById('subject').value,
+            det: document.getElementById('detail').value,
+            rec: document.getElementById('recorder').value
         };
-        if(!val.date || !val.subject || !val.recorder || !b1 || !b2) {
-            return Swal.fire('ข้อมูลไม่ครบ', 'กรุณากรอกข้อมูลและแนบรูปภาพให้ครบ 2 รูปค่ะ', 'warning');
-        }
-        document.getElementById('pRecorder').innerText = val.recorder;
-        document.getElementById('pDate').innerText = getThaiDate(val.date);
-        document.getElementById('pSubject').innerText = val.subject;
-        document.getElementById('pDetail').innerText = val.detail;
-        document.getElementById('pSuggestion').innerText = val.suggestion || "-";
-        document.getElementById('pImg1').src = b1;
-        document.getElementById('pImg2').src = b2;
-        new bootstrap.Modal(document.getElementById('previewModal')).show();
+        if(!d.date || !d.sub || !d.rec || !b1 || !b2) return Swal.fire('ข้อมูลไม่ครบ', '', 'warning');
+        
+        document.getElementById('pRec').innerText = d.rec;
+        document.getElementById('pDate').innerText = getThaiDate(d.date);
+        document.getElementById('pSub').innerText = d.sub;
+        document.getElementById('pDet').innerText = d.det;
+        document.getElementById('pSug').innerText = document.getElementById('suggestion').value || "-";
+        document.getElementById('pv1').src = b1;
+        document.getElementById('pv2').src = b2;
+        new bootstrap.Modal(document.getElementById('pModal')).show();
     }
 
-    async function submitToGAS() {
-        bootstrap.Modal.getInstance(document.getElementById('previewModal')).hide();
-        Swal.fire({ title: 'กำลังบันทึก...', text: 'ระบบกำลังสร้างไฟล์ PDF และบันทึกข้อมูล', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-        const payload = {
+    async function doSubmit() {
+        bootstrap.Modal.getInstance(document.getElementById('pModal')).hide();
+        Swal.fire({ title: 'กำลังประมวลผล...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+        
+        const body = {
             date: document.getElementById('date').value,
             subject: document.getElementById('subject').value,
             detail: document.getElementById('detail').value,
@@ -168,17 +140,17 @@
             recorder: document.getElementById('recorder').value,
             image1: b1, image2: b2
         };
+
         try {
-            const res = await fetch(GAS_URL, { method: 'POST', body: JSON.stringify(payload) });
-            const result = await res.json();
-            if(result.status === 'success') {
-                Swal.fire({ icon: 'success', title: 'สำเร็จ!', html: '<div style="font-size:14px; white-space:nowrap;">สร้างรายงาน PDF เรียบร้อยแล้วค่ะ</div>', confirmButtonText: 'เปิดดูรายงาน'
-                }).then(() => window.open(result.viewUrl, '_blank'));
+            const res = await fetch(APP_URL, { method: 'POST', body: JSON.stringify(body) });
+            const data = await res.json();
+            if(data.status === 'success') {
+                Swal.fire('สำเร็จ!', '', 'success').then(() => window.open(data.viewUrl, '_blank'));
                 document.getElementById('reportForm').reset();
-                document.querySelectorAll('.img-preview-box').forEach(i => { i.style.display='none'; i.style.height='auto'; });
-                b1 = ""; b2 = "";
+                document.querySelectorAll('.img-preview-box').forEach(i => i.style.display='none');
+                b1 = b2 = "";
             }
-        } catch (e) { Swal.fire('Error', e.toString(), 'error'); }
+        } catch (e) { Swal.fire('เกิดข้อผิดพลาด', e.toString(), 'error'); }
     }
 </script>
 </body>
