@@ -6,116 +6,125 @@
     <title>บันทึกการปฏิบัติงาน</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <style>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
     
     body { 
         font-family: 'Sarabun', sans-serif; 
-        background-color: #f4f6f9; 
-        color: #334155;
+        background: radial-gradient(circle at top right, #f8fafc, #e2e8f0); /* พื้นหลังไล่เฉดอ่อนๆ */
+        color: #1e293b;
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* ป้องกันหน้าจอส่ายไปมา */
+        min-height: 100vh;
     }
 
-    /* แบนเนอร์: ปรับให้ยืดหยุ่นตามหน้าจอ */
+    /* แบนเนอร์: ไล่เฉดสีน้ำเงินลึก (Deep Blue) แบบหรูหรา */
     .header-banner { 
-        background: linear-gradient(135deg, #1e3a8a 0%, #1a3675 100%);
+        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
         color: white; 
-        padding: 40px 15px 70px 15px; 
-        border-bottom: 5px solid #fbbf24;
+        padding: 40px 15px 80px 15px; 
+        border-bottom: 3px solid rgba(251, 191, 36, 0.8); /* เส้นขอบทองแบบโปร่งแสง */
         position: relative;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .brand-wrapper {
         display: flex;
-        flex-direction: row; /* แนวนอนเป็นค่าเริ่มต้น */
         align-items: center;
         justify-content: center;
-        gap: 12px;
-        margin-bottom: 8px;
+        gap: 15px;
     }
 
-    .school-logo {
+    /* ไอคอนบันทึก: ปรับให้ดูเป็นกระจก (Glass Effect) */
+    .report-icon {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fbbf24; /* ไอคอนสีทองตัดกับน้ำเงินเข้ม */
+        width: 50px;
         height: 50px;
-        width: auto;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 26px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     }
 
     .header-banner h2 {
-        font-size: 1.6rem; /* ปรับลดจาก 2rem */
+        font-size: 1.6rem;
         font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         margin: 0;
-        line-height: 1.2;
+        letter-spacing: 1px;
+        background: linear-gradient(to bottom, #ffffff, #cbd5e1); /* ไล่เฉดสีตัวอักษรให้ดูมีมิติ */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
-    .header-banner p {
-        font-size: 0.9rem;
-        opacity: 0.85;
-        margin-top: 5px;
-    }
-
-    /* การ์ดข้อมูล */
+    /* การ์ดฟอร์ม: เน้นความสะอาดและขอบมนที่พอดี */
     .main-card { 
         border: none; 
-        border-radius: 15px; 
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        margin-top: -40px; 
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        margin-left: 10px;
-        margin-right: 10px;
+        border-radius: 20px; 
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        margin: -45px auto 50px auto; 
+        max-width: 650px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        margin-left: 15px;
+        margin-right: 15px;
     }
 
-    .form-label { font-weight: 700; color: #1e3a8a; margin-bottom: 6px; font-size: 0.9rem; }
-    .form-control { border: 1px solid #e2e8f0; padding: 10px 12px; border-radius: 8px; font-size: 16px !important; /* ป้องกัน iPhone ซูมหน้าจอขณะพิมพ์ */ }
-    
+    .card-body { padding: 35px !important; }
+
+    /* ปรับแต่ง Input ให้ดูพรีเมียม */
+    .form-label { 
+        font-weight: 700; 
+        color: #334155; 
+        font-size: 0.85rem; 
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-control { 
+        border: 1px solid #e2e8f0; 
+        border-radius: 12px; 
+        padding: 12px 16px;
+        background-color: #f8fafc;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus { 
+        background-color: #ffffff;
+        border-color: #3b82f6; 
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); 
+    }
+
+    /* ปุ่มส่งข้อมูล: ไล่เฉดสีแบบสุขุม */
     .btn-primary { 
-        background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); 
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
         border: none; 
-        padding: 14px; 
-        font-size: 1rem; 
-        border-radius: 10px; 
+        padding: 16px; 
         font-weight: bold;
+        border-radius: 14px;
+        box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ส่วนแสดงผล Preview */
-    .preview-label { font-weight: bold; color: #1e3a8a; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
-    .preview-value { margin-bottom: 12px; color: #1e293b; border-bottom: 1px solid #f1f5f9; padding-bottom: 4px; line-height: 1.5; font-size: 0.95rem; white-space: pre-wrap; }
+    .btn-primary:hover { 
+        background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3);
+    }
 
-    /* ปรับปรุงสำหรับมือถือโดยเฉพาะ (Responsive) */
+    /* Responsive */
     @media (max-width: 576px) {
-        .header-banner { padding: 30px 10px 60px 10px; }
-        
-        .brand-wrapper {
-            flex-direction: column; /* มือถือให้โลโก้อยู่บน ชื่ออยู่ล่าง */
-            gap: 8px;
-        }
-
-        .school-logo { height: 45px; } /* ลดขนาดโลโก้ลงนิดนึง */
-
-        .header-banner h2 { 
-            font-size: 1.3rem; /* ชื่อระบบตัวเล็กลงเพื่อไม่ให้ตัดบรรทัดมั่ว */
-            text-align: center;
-        }
-
-        .header-banner p { font-size: 0.8rem; }
-
-        .main-card { 
-            margin-top: -30px; 
-            padding: 15px !important; /* ลด padding ข้างในเพื่อเพิ่มพื้นที่ */
-        }
-
-        .preview-value { font-size: 0.9rem; } /* ลดขนาดตัวอักษรในหน้า Preview */
-        
-        /* ปรับรูปในมือถือให้ดูใหญ่ขึ้น */
-        .modal-img { max-height: 140px; }
+        .header-banner { padding: 35px 15px 70px 15px; }
+        .header-banner h2 { font-size: 1.3rem; }
+        .main-card { margin-top: -35px; }
+        .card-body { padding: 25px !important; }
     }
-
-    .img-preview-box { width: 100%; border-radius: 8px; display: none; margin-top: 10px; border: 2px dashed #cbd5e1; }
-    .modal-img { width: 100%; border-radius: 8px; object-fit: contain; background: #f1f5f9; }
 </style>
 </head>
 <body>
