@@ -136,6 +136,29 @@
         font-weight: 700 !important;
         color: #0f172a;
     }
+
+    /* --- [ ปรับหัวข้อ Modal ตรวจสอบข้อมูล ] --- */
+    .modal-header h5 {
+        font-size: 1.25rem; /* ขนาดปกติบน Desktop */
+        white-space: nowrap; /* บังคับไม่ให้ตัดบรรทัด */
+    }
+
+    @media (max-width: 576px) {
+        .modal-header {
+            padding: 15px 10px !important; /* ลดช่องว่างขอบซ้ายขวาในมือถือ */
+        }
+        
+        .modal-header h5 {
+            font-size: 1.05rem; /* ลดขนาดตัวอักษรลงเพื่อให้พอดีบรรทัดเดียวในมือถือ */
+            letter-spacing: -0.5px; /* บีบระยะห่างตัวอักษรนิดนึงเพื่อให้สวยงาม */
+        }
+
+        /* ปรับปุ่มปิด (X) ให้เล็กลงนิดนึงเพื่อให้ไม่เบียดหัวข้อ */
+        .btn-close {
+            padding: 0.5rem;
+            margin-left: 5px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -201,10 +224,10 @@
 <div class="modal fade" id="pModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content border-0 rounded-4 shadow-2xl">
-            <div class="modal-header bg-primary text-white border-0 px-4 py-3">
-                <h5 class="fw-bold mb-0">📝 ตรวจสอบความถูกต้องของข้อมูล</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
+            <div class="modal-header bg-primary text-white border-0">
+    <h5 class="fw-bold mb-0">📝 ตรวจสอบความถูกต้องของข้อมูล</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
             <div class="modal-body px-4 pt-4" style="background: #ffffff;">
                 <div class="row">
                     <div class="col-md-6">
