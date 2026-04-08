@@ -243,12 +243,12 @@
                 <div class="row mb-5 g-3">
                     <div class="col-6">
                         <label class="small fw-bold text-muted mb-2 d-block">📸 รูปภาพประกอบ 1</label>
-                        <input type="file" id="img1" class="form-control form-control-sm" accept="image/*" required>
+                        <input type="file" id="img1" class="form-control form-control-sm" accept="image/*">
                         <img id="v1" class="img-preview-box mt-2" style="width: 100%; border-radius: 10px; display: none; border: 1px solid #e2e8f0; object-fit: cover;">
                     </div>
                     <div class="col-6">
                         <label class="small fw-bold text-muted mb-2 d-block">📸 รูปภาพประกอบ 2</label>
-                        <input type="file" id="img2" class="form-control form-control-sm" accept="image/*" required>
+                        <input type="file" id="img2" class="form-control form-control-sm" accept="image/*">
                         <img id="v2" class="img-preview-box mt-2" style="width: 100%; border-radius: 10px; display: none; border: 1px solid #e2e8f0; object-fit: cover;">
                     </div>
                 </div>
@@ -397,14 +397,14 @@
             det: document.getElementById('detail').value,
             rec: document.getElementById('recorder').value
         };
-        if(!d.date || !d.sub || !d.rec || !b1 || !b2) {
-            return Swal.fire({
-                icon: 'warning',
-                title: 'ข้อมูลไม่ครบ',
-                text: 'กรุณากรอกข้อมูลและแนบรูปภาพให้ครบถ้วนนะคะ',
-                confirmButtonColor: '#1e3a8a'
-            });
-        }
+        if(!d.date || !d.sub || !d.rec) {
+    return Swal.fire({
+        icon: 'warning',
+        title: 'ข้อมูลไม่ครบ',
+        text: 'กรุณากรอกวันที่ เรื่อง และผู้บันทึกให้ครบถ้วนนะคะ',
+        confirmButtonColor: '#1e3a8a'
+    });
+}
         
         document.getElementById('pRec').innerText = d.rec;
         document.getElementById('pDate').innerText = getThaiDate(d.date);
