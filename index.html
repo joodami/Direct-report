@@ -159,6 +159,46 @@
             margin-left: 5px;
         }
     }
+
+    /* ปรับแต่งหน้าต่างแจ้งเตือน (SweetAlert) ให้สวยงามในมือถือ */
+.swal2-popup {
+    border-radius: 20px !important;
+    padding: 20px !important;
+}
+
+/* หัวข้อ (Title) */
+.swal2-title {
+    font-size: 1.4rem !important; /* ขนาดบนคอม */
+    color: #1e3a8a !important;
+}
+
+/* เนื้อหา (Text) */
+.swal2-html-container {
+    font-size: 1rem !important;
+}
+
+/* ปรับขนาดเฉพาะในมือถือ */
+@media (max-width: 576px) {
+    .swal2-popup {
+        width: 85% !important; /* ให้หน้าต่างกว้าง 85% ของจอ ไม่เต็มเกินไป */
+        padding: 15px !important;
+    }
+    
+    .swal2-title {
+        font-size: 1.15rem !important; /* ลดขนาดหัวข้อลงในมือถือ */
+    }
+
+    .swal2-html-container {
+        font-size: 0.9rem !important; /* ลดขนาดเนื้อหาลงในมือถือ */
+    }
+
+    /* ปรับขนาดตัว Loading (Spinner) ให้เล็กลง */
+    .swal2-loader {
+        border-width: 4px !important;
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
 </style>
 </head>
 <body>
